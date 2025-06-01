@@ -26,10 +26,11 @@ jobs:
     - name: Run Cucumber Tests
       run: mvn test
 
-# - name: Upload Cucumber Report
-#   if: always()
-#   uses: actions/upload-artifact@v3
-#   with:
-#     name: cucumber-report
-#     path: target/cucumber-reports.html
+    - name: Upload Cucumber Report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: cucumber-report
+        path: target/cucumber-reports.html
+
 
