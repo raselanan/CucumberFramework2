@@ -24,7 +24,7 @@ public class LoginSteps {
 
     @When("User enters valid credentials")
     public void enter_credentials() {
-        loginPage.login("testuser", "testpass");
+        loginPage.login("student", "Password123");
     }
 
     @Then("User should be logged in successfully")
