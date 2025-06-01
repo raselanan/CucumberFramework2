@@ -1,5 +1,7 @@
-# CucumberFramework
+![Build Status](https://github.com/raselanan/CucumberFramework2/actions/workflows/maven.yml/badge.svg)
 
+
+# CucumberFramework
 A Java-based Cucumber BDD automation framework using Selenium and Maven.
 
 ## 🔧 Tech Stack
