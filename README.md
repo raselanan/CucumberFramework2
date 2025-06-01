@@ -1,4 +1,16 @@
+##  Build Status
+
 ![Build Status](https://github.com/raselanan/CucumberFramework2/actions/workflows/maven.yml/badge.svg)
+
+## 📊 Test Results
+
+➡️ [Download latest Cucumber Report](https://github.com/raselanan/CucumberFramework2/actions)
+
+➡️ [View Live Report](https://raselanan.github.io/CucumberFramework2/)
+
+| Date       | Status  | Passed | Failed | Report Link |
+|------------|---------|--------|--------|-------------|
+| 2025-06-01 | ✅ Pass | 10     | 0      | [Report](#) |
 
 
 # CucumberFramework
