@@ -24,4 +24,19 @@ public class LoginPage {
         return driver.findElement(logoutBtn).isDisplayed();
     }
 
+    public void loginWithInvalidUsername(String username, String password) {
+    driver.findElement(By.id("username")).sendKeys(username);
+    driver.findElement(By.id("password")).sendKeys(password);
+    driver.findElement(By.id("submit")).click();
+    }
+
+    public String getErrorMessage() {
+        return driver.findElement(By.id("error")).getText(); // adjust selector if needed
+    }
+
+    public boolean isErrorDisplayed() {
+        return driver.findElement(By.id("error")).isDisplayed(); // adjust selector if needed
+    }
+
+
 }
