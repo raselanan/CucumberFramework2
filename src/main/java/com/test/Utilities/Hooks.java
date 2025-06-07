@@ -16,7 +16,7 @@ public class Hooks {
     @Before
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new"); // optional
+        options.addArguments("--headless=new"); // optional for CI
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
 
