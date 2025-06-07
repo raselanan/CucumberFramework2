@@ -1,23 +1,18 @@
 package com.test.StepDefinition;
 
 import com.test.PageObject.LoginPage;
+import com.test.Utilities.Hooks;
 import io.cucumber.java.en.*;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 public class LoginSteps {
-    WebDriver driver;
+
+    WebDriver driver = Hooks.getDriver();
     LoginPage loginPage;
 
     @Given("User is on login page")
     public void user_on_login_page() {
-        //driver = new ChromeDriver();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new"); // for Chrome 109+
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
         driver.get("https://practicetestautomation.com/practice-test-login/");
         loginPage = new LoginPage(driver);
     }
@@ -29,7 +24,15 @@ public class LoginSteps {
 
     @Then("User should be logged in successfully")
     public void verify_login() {
-        System.out.println("Login Successful");
-        driver.quit();
+        // 1. URL check
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertTrue("URL does not contain 'logged-in-successfully'", currentUrl.contains("logged-in-successfully"));
+
+        // 2. Page message check
+        String pageSource = driver.getPageSource().toLowerCase();
+        Assert.assertTrue("Missing success message", pageSource.contains("congratulations") || pageSource.contains("successfully logged in"));
+
+        // 3. Logout button check
+        Assert.assertTrue("Logout button not displayed", loginPage.logoutButtonIsDisplayed());
     }
 }

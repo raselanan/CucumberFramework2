@@ -8,7 +8,7 @@ public class LoginPage {
     By username = By.id("username");
     By password = By.id("password");
     By loginBtn = By.className("btn");
-
+    By logoutBtn = By.xpath("//a[text()='Log out']");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -18,7 +18,10 @@ public class LoginPage {
         driver.findElement(username).sendKeys(user);
         driver.findElement(password).sendKeys(pass);
         driver.findElement(loginBtn).click();
-        System.out.println("HHH");
-        driver.close();
     }
+
+    public boolean logoutButtonIsDisplayed() {
+        return driver.findElement(logoutBtn).isDisplayed();
+    }
+
 }
