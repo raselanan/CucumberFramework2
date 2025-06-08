@@ -2,6 +2,9 @@ package com.test.PageObject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
     WebDriver driver;
@@ -33,13 +36,16 @@ public class LoginPage {
         driver.findElement(loginBtn).click();
     }
 
-    public String getErrorMessage() {
-        String getErrorMessage = driver.findElement(By.id("error")).getText(); // adjust selector if needed
-        return getErrorMessage;
+   public boolean isErrorDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement error = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("error")));
+        return error.isDisplayed();
     }
 
-    public boolean isErrorDisplayed() {
-        return driver.findElement(By.id("error")).isDisplayed(); // adjust selector if needed
+    public String getErrorMessage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("error"))).getText();
     }
+
 
 }
