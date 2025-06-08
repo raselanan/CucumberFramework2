@@ -50,8 +50,8 @@ public class LoginSteps {
         // Assert.assertEquals("Wrong error message", expectedMessage,
         // loginPage.getErrorMessage());
 
-        //Assert.assertTrue("Error message not displayed", loginPage.isErrorDisplayed());
-        //Assert.assertEquals("Wrong error message", expectedMessage, loginPage.getErrorMessage());
+        Assert.assertTrue("Error message not displayed", loginPage.isErrorDisplayed());
+        Assert.assertEquals("Wrong error message", expectedMessage, loginPage.getErrorMessage());
         System.out.println("Page Source:\n" + driver.getPageSource());
         Assert.assertTrue(driver.getPageSource().contains("Your username is invalid!"));
 

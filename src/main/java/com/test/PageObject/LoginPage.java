@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 public class LoginPage {
     WebDriver driver;
@@ -36,7 +37,7 @@ public class LoginPage {
         driver.findElement(loginBtn).click();
     }
 
-   public boolean isErrorDisplayed() {
+    public boolean isErrorDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement error = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("error")));
         return error.isDisplayed();
@@ -46,6 +47,5 @@ public class LoginPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("error"))).getText();
     }
-
 
 }
