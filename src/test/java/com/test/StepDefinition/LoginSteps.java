@@ -1,14 +1,14 @@
 package com.test.StepDefinition;
 
 import com.test.PageObject.LoginPage;
-import com.test.Utilities.Hooks;
+import com.test.Utilities.BaseClass;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
 public class LoginSteps {
 
-    WebDriver driver = Hooks.getDriver();
+    WebDriver driver = BaseClass.driver;
     LoginPage loginPage;
 
     @Given("User is on login page")

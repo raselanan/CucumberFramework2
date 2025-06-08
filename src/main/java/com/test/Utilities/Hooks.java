@@ -1,45 +1,32 @@
+// Hooks.java
 package com.test.Utilities;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+
+import java.time.Duration;
 
 public class Hooks {
-
-    private static WebDriver driver;
 
     @Before
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new"); // Required for CI
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--remote-allow-origins=*");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--user-data-dir=/tmp/chrome-profile"); // Unique temp directory
-        WebDriver driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless"); // optional for CI/CD
+
+        BaseClass.driver = new ChromeDriver(options);
+        BaseClass.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        BaseClass.driver.manage().window().maximize();
     }
 
     @After
-    public void tearDown(Scenario scenario) {
-        // Screenshot on failure
-        if (scenario.isFailed() && driver != null) {
-            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", "Failure Screenshot");
+    public void tearDown() {
+        if (BaseClass.driver != null) {
+            BaseClass.driver.quit();
         }
-
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
-    public static WebDriver getDriver() {
-        return driver;
     }
 }
