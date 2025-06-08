@@ -7,7 +7,7 @@ public class LoginPage {
     WebDriver driver;
     By username = By.id("username");
     By password = By.id("password");
-    By loginBtn = By.className("btn");
+    By loginBtn = By.id("submit");
     By logoutBtn = By.xpath("//a[text()='Log out']");
 
     public LoginPage(WebDriver driver) {
@@ -25,10 +25,10 @@ public class LoginPage {
     }
 
     public void loginWithInvalidUsername(String username, String password) {
-    driver.findElement(By.id("username")).sendKeys(username);
-    driver.findElement(By.id("password")).sendKeys(password);
-    //driver.findElement(By.id("submit")).click();
-    driver.findElement(loginBtn).click();
+        driver.findElement(By.id("username")).sendKeys(username);
+        driver.findElement(By.id("password")).sendKeys(password);
+        // driver.findElement(By.id("submit")).click();
+        driver.findElement(loginBtn).click();
     }
 
     public String getErrorMessage() {
@@ -38,6 +38,5 @@ public class LoginPage {
     public boolean isErrorDisplayed() {
         return driver.findElement(By.id("error")).isDisplayed(); // adjust selector if needed
     }
-
 
 }
