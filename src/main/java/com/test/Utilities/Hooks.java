@@ -16,11 +16,13 @@ public class Hooks {
     @Before
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-        // options.addArguments("--headless=new"); // optional for CI
+        options.addArguments("--headless=new"); // Required for CI
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-
-        driver = new ChromeDriver(options);
+        options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--user-data-dir=/tmp/chrome-profile"); // Unique temp directory
+        WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
     }
 
