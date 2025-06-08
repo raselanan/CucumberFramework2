@@ -27,7 +27,8 @@ public class LoginPage {
     public void loginWithInvalidUsername(String username, String password) {
     driver.findElement(By.id("username")).sendKeys(username);
     driver.findElement(By.id("password")).sendKeys(password);
-    driver.findElement(By.id("submit")).click();
+    //driver.findElement(By.id("submit")).click();
+    driver.findElement(loginBtn).click();
     }
 
     public String getErrorMessage() {
