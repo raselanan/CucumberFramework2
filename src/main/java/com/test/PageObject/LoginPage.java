@@ -34,7 +34,8 @@ public class LoginPage {
     }
 
     public String getErrorMessage() {
-        return driver.findElement(By.id("error")).getText(); // adjust selector if needed
+        String getErrorMessage = driver.findElement(By.id("error")).getText(); // adjust selector if needed
+        return getErrorMessage;
     }
 
     public boolean isErrorDisplayed() {
