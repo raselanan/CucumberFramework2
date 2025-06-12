@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.Duration;
 
 public class Hooks {
-
+    // this is hooks file
     @Before
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
