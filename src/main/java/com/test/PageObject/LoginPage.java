@@ -1,51 +1,42 @@
 package com.test.PageObject;
 
+import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
 
 public class LoginPage {
-    WebDriver driver;
-    LoginPage loginPage;
-
-    By username = By.id("username");
-    By password = By.id("password");
-    By loginBtn = By.id("submit");
-    By logoutBtn = By.xpath("//a[text()='Log out']");
+    private static final String URL = "https://practicetestautomation.com/practice-test-login/";
+    private final WebDriver driver;
+    private final WebDriverWait wait;
+    private final By username = By.id("username");
+    private final By password = By.id("password");
+    private final By loginButton = By.id("submit");
+    private final By errorMessage = By.id("error");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    public void open() {
+        driver.get(URL);
     }
 
     public void login(String user, String pass) {
-        driver.findElement(username).sendKeys(user);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(username)).sendKeys(user);
         driver.findElement(password).sendKeys(pass);
-        driver.findElement(loginBtn).click();
-    }
-
-    public boolean logoutButtonIsDisplayed() {
-        return driver.findElement(logoutBtn).isDisplayed();
-    }
-
-    public void loginWithInvalidUsername(String username, String password) {
-        driver.findElement(By.id("username")).sendKeys(username);
-        driver.findElement(By.id("password")).sendKeys(password);
-        // driver.findElement(By.id("submit")).click();
-        driver.findElement(loginBtn).click();
+        driver.findElement(loginButton).click();
     }
 
     public boolean isErrorDisplayed() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement error = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("error")));
+        WebElement error = wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
         return error.isDisplayed();
     }
 
     public String getErrorMessage() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("error"))).getText();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).getText();
     }
-
 }

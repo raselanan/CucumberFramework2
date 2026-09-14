@@ -13,7 +13,7 @@ import io.cucumber.junit.CucumberOptions;
 )
 
 public class TestRunner {
-    public static void main(String[] args) throws Exception {
-        org.junit.runner.JUnitCore.main("com.test.TestRunner.TestRunner");
+    public static void main(String[] args) {
+        org.junit.runner.JUnitCore.main(TestRunner.class.getName());
     }
 }

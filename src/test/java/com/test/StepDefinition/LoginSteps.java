@@ -1,20 +1,20 @@
 package com.test.StepDefinition;
 
+import org.junit.Assert;
+import com.test.PageObject.LoggedInPage;
 import com.test.PageObject.LoginPage;
 import com.test.Utilities.BaseClass;
-import io.cucumber.java.en.*;
-import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class LoginSteps {
-
-    WebDriver driver = BaseClass.driver;
-    LoginPage loginPage;
+    private LoginPage loginPage;
 
     @Given("User is on login page")
     public void user_on_login_page() {
-        driver.get("https://practicetestautomation.com/practice-test-login/");
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(BaseClass.driver);
+        loginPage.open();
     }
 
     @When("User enters valid credentials")
@@ -22,39 +22,31 @@ public class LoginSteps {
         loginPage.login("student", "Password123");
     }
 
+    @When("User enters username {string} and password {string}")
+    public void enter_credentials(String username, String password) {
+        loginPage.login(username, password);
+    }
+
     @Then("User should be logged in successfully")
     public void verify_login() {
-        // 1. URL check
-        String currentUrl = driver.getCurrentUrl();
-        Assert.assertTrue("URL does not contain 'logged-in-successfully'",
-                currentUrl.contains("logged-in-successfully"));
-
-        // 2. Page message check
-        String pageSource = driver.getPageSource().toLowerCase();
-        Assert.assertTrue("Missing success message",
-                pageSource.contains("congratulations") || pageSource.contains("successfully logged in"));
-
-        // 3. Logout button check
-        Assert.assertTrue("Logout button not displayed", loginPage.logoutButtonIsDisplayed());
+        LoggedInPage loggedInPage = new LoggedInPage(BaseClass.driver);
+        Assert.assertTrue("Logged-in page was not loaded", loggedInPage.isLoaded());
+        Assert.assertTrue("Logout button not displayed", loggedInPage.isLogoutButtonDisplayed());
     }
 
     @When("User enters invalid username")
     public void enter_invalid_username() {
-        loginPage.loginWithInvalidUsername("incorrectUser", "Password123");
+        loginPage.login("incorrectUser", "Password123");
+    }
+
+    @When("User enters an invalid password")
+    public void enter_invalid_password() {
+        loginPage.login("student", "incorrectPassword");
     }
 
     @Then("An error message {string} should be displayed")
     public void verify_error_message(String expectedMessage) {
-        // Assert.assertTrue("Error message not displayed",
-        // loginPage.isErrorDisplayed());
-        // Assert.assertEquals("Wrong error message", expectedMessage,
-        // loginPage.getErrorMessage());
-
         Assert.assertTrue("Error message not displayed", loginPage.isErrorDisplayed());
         Assert.assertEquals("Wrong error message", expectedMessage, loginPage.getErrorMessage());
-        System.out.println("Page Source:\n" + driver.getPageSource());
-        Assert.assertTrue(driver.getPageSource().contains("Your username is invalid!"));
-
     }
-
 }
