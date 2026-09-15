@@ -35,8 +35,8 @@ public class ExceptionsPage {
 
     public void editFirstRow(String value) {
         wait.until(ExpectedConditions.elementToBeClickable(editButton)).click();
-        wait.until(driver -> {
-            WebElement field = driver.findElement(firstRowInput);
+        wait.until(webDriver -> {
+            WebElement field = webDriver.findElement(firstRowInput);
             return field.getDomAttribute("disabled") == null
                     && field.getDomAttribute("readonly") == null;
         });
